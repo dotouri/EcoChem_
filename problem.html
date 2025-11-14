@@ -1,0 +1,55 @@
+<section id="problem">
+  <h2>문제 의식</h2>
+  <p>현재 환경오염은 기후 위기와 생태계 붕괴의 주요 원인이 되고 있습니다.  
+     특히 탄소 배출량의 급증과 미세플라스틱·산업 폐기물 증가는 환경 지속가능성을 위협합니다.</p>
+
+  <!-- ● 시뮬레이터: 탄소 배출량 증가에 따른 지구 온도 변화 간단 시뮬레이션 -->
+  <div class="simulator">
+    <h3>🌍 탄소 배출량 시뮬레이터</h3>
+    <p>슬라이더를 움직여 탄소 배출량(억 톤)을 변경하세요.</p>
+
+    <label>탄소 배출량: <span id="co2Value">50</span>억 톤</label>
+    <input type="range" id="co2Slider" min="10" max="100" value="50">
+
+    <p>예상 지구 온도 상승:  
+      <strong><span id="tempRise">1.6</span>℃</strong>
+    </p>
+  </div>
+
+  <script>
+    const slider = document.getElementById("co2Slider");
+    const co2Value = document.getElementById("co2Value");
+    const tempRise = document.getElementById("tempRise");
+
+    slider.oninput = function() {
+      co2Value.textContent = this.value;
+      tempRise.textContent = (0.032 * this.value).toFixed(2);
+    }
+  </script>
+
+  <!-- ● 환경오염 그래프 (바닐라 JS + Canvas) -->
+  <h3>📈 환경오염 증가 추세 그래프</h3>
+  <canvas id="pollutionGraph" width="350" height="200"></canvas>
+
+  <script>
+    const canvas = document.getElementById("pollutionGraph");
+    const ctx = canvas.getContext("2d");
+
+    // 데이터 (예시): 년도별 CO₂ 농도(ppm)
+    const years = [2000, 2005, 2010, 2015, 2020, 2025];
+    const co2 = [370, 380, 390, 400, 415, 425];
+
+    // 그래프 그리기
+    ctx.beginPath();
+    ctx.moveTo(30, 180);
+
+    for (let i = 0; i < years.length; i++) {
+      const x = 30 + i * 50;
+      const y = 180 - (co2[i] - 350); 
+      ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+  </script>
+
+</section>
